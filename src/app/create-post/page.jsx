@@ -20,9 +20,8 @@ export default function CreatePostPage() {
       reader.readAsDataURL(file);
     }
   };
-
+  const DB = supabaseClient();
   const addPost = async () => {
-    const DB = supabaseClient();
     if (!description && !image) return;
     const { data: { user } } = await DB.auth.getUser();
 
