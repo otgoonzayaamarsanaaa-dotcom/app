@@ -10,13 +10,11 @@ import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import { supabaseClient } from "@/lib/supabase-client";
 
 export default function PostsPage() {
-  const supabase = supabaseClient();
   const [posts, setPosts] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // Edit states
   const [editingPostId, setEditingPostId] = useState(null);
   const [editDescription, setEditDescription] = useState("");
   const [editImage, setEditImage] = useState("");
@@ -25,14 +23,11 @@ export default function PostsPage() {
 
   const getPostsAndUser = async () => {
     setLoading(true);
-
-    // 1. Хэрэглэгч авах
+    const supabase = supabaseClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       setCurrentUserId(user.id);
     }
-
-    // 2. Постууд авах
     const response = await supabase
       .from("pets-app")
       .select("*")
