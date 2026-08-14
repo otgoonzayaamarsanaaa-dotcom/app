@@ -19,10 +19,10 @@ export default function CreatePostPage() {
       reader.onloadend = () => setImage(reader.result);
       reader.readAsDataURL(file);
     }
-  };
-  const DB = supabaseClient();
+  }
   const addPost = async () => {
     if (!description && !image) return;
+     const DB = supabaseClient();
     const { data: { user } } = await DB.auth.getUser();
 
     await DB.from("pets-app").insert([
