@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabaseClient } from "@/lib/supabase-client";
 
 export default function CreatePostPage() {
-  const DB = supabaseClient();
   const router = useRouter();
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -23,6 +22,7 @@ export default function CreatePostPage() {
   };
 
   const addPost = async () => {
+    const DB = supabaseClient();
     if (!description && !image) return;
     const { data: { user } } = await DB.auth.getUser();
 
